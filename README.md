@@ -7,6 +7,7 @@ chmod +x /path/to/qn
 export PATH = "/path/to/qn:$PATH"
 
 设置ak sk bucket
+
 qn account -w ak sk bucket
 
 ## 查看帮助
