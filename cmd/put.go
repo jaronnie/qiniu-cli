@@ -28,14 +28,9 @@ import (
 
 // putCmd represents the put command
 var putCmd = &cobra.Command{
-	Use:   "put",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "put <local file> [flags]",
+	Short: "put file to qiniu server",
+	Long: `use put command, you can put your local file to qiniu server, and get a url.`,
 	Run: put,
 }
 
@@ -43,12 +38,11 @@ func put(cmd *cobra.Command, params []string){
 
 	if len(params) <= 0 {
 
-		fmt.Println("请填写图片路径")
+		fmt.Println("please set filepath...")
+
 		os.Exit(0)
 
 	}
-
-	//fmt.Println(params)
 
 	path := params[0]
 
@@ -67,39 +61,63 @@ func put(cmd *cobra.Command, params []string){
 	}
 
 	accessKey := viper.GetString("ak")
+
 	secretKey := viper.GetString("sk")
 
 	bucket := viper.GetString("bucket")
 
+	//fmt.Println(accessKey)
+	//
+	//fmt.Println(secretKey)
+	//
+	//fmt.Println(bucket)
+
 	putPolicy := storage.PutPolicy{
+
 		Scope: bucket,
 	}
+
 	mac := qbox.NewMac(accessKey, secretKey)
+
 	upToken := putPolicy.UploadToken(mac)
 
 	cfg := storage.Config{}
+
+	//bm := storage.NewBucketManager(mac, &cfg)
+	//
+	//domains, err := bm.ListBucketDomains(bucket)
+	//
+	//fmt.Println(domains)
+
 	formUploader := storage.NewFormUploader(&cfg)
+
 	ret := storage.PutRet{}
 
 	putExtra := storage.PutExtra{
+
 		Params: map[string]string{
+
 			"x:name": "picture or some other data",
 		},
 	}
+
+
 	err := formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
+
 	if err != nil {
+
 		fmt.Println("上传失败")
+
 		return
 	}
-	fmt.Println("上传成功","外链如下")
-	fmt.Println("https://picture.hs-vae.com/" + ret.Key)
+
+	fmt.Println("upload successfully")
 
 }
+
 
 func init() {
 
 	rootCmd.AddCommand(putCmd)
-
-
 
 }

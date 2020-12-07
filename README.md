@@ -2,23 +2,22 @@
 
 ## 使用
 
-修改配置文件
+chmod +x /path/to/qn
 
-~/.qn.toml
-
-增加如下内容
-```
-ak = ""
-sk = ""
-bucket = ""
-
-```
-
-chmod +x qn
-
-把qn添加到环境变量中
 export PATH = "/path/to/qn:$PATH"
+
+设置ak sk bucket
+qn account -w ak sk bucket
 
 ## 查看帮助
 
 qn -h
+
+## 目前支持的命令
+
+* put
+> qn put filepath
+
+## TODO
+
+支持通配符

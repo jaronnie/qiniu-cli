@@ -55,8 +55,6 @@ func initConfig() {
 
 	cfgFile = homeDir + "/.qn.toml"
 
-	//fmt.Println(cfgFile)
-
 	if hErr != nil {
 
 		fmt.Printf("get current home directory: %v\n", hErr)
