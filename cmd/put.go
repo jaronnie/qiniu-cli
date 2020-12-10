@@ -66,12 +66,6 @@ func put(cmd *cobra.Command, params []string){
 
 	bucket := viper.GetString("bucket")
 
-	//fmt.Println(accessKey)
-	//
-	//fmt.Println(secretKey)
-	//
-	//fmt.Println(bucket)
-
 	putPolicy := storage.PutPolicy{
 
 		Scope: bucket,
@@ -81,13 +75,21 @@ func put(cmd *cobra.Command, params []string){
 
 	upToken := putPolicy.UploadToken(mac)
 
-	cfg := storage.Config{}
+	cfg := storage.Config{
 
-	//bm := storage.NewBucketManager(mac, &cfg)
-	//
-	//domains, err := bm.ListBucketDomains(bucket)
-	//
-	//fmt.Println(domains)
+		ApiHost:"http://api.qiniu.com",
+
+	}
+
+	bm := storage.NewBucketManager(mac, &cfg)
+
+	domains, err := bm.ListBucketDomains(bucket)
+
+	if err != nil {
+
+		fmt.Println("get domain err")
+
+	}
 
 	formUploader := storage.NewFormUploader(&cfg)
 
@@ -102,7 +104,7 @@ func put(cmd *cobra.Command, params []string){
 	}
 
 
-	err := formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
+	err = formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
 
 	if err != nil {
 
@@ -112,6 +114,8 @@ func put(cmd *cobra.Command, params []string){
 	}
 
 	fmt.Println("upload successfully")
+
+	fmt.Println("外链为:" + "http://" + domains[0].Domain + "/" + upload)
 
 }
 
