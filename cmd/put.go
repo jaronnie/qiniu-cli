@@ -115,7 +115,9 @@ func put(cmd *cobra.Command, params []string){
 
 	fmt.Println("upload successfully")
 
-	fmt.Println("外链为:" + "http://" + domains[0].Domain + "/" + upload)
+	fmt.Println("外链为:")
+
+    fmt.Println("http://" + domains[0].Domain + "/" + upload)
 
 }
 
