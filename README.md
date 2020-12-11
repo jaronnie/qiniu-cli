@@ -73,7 +73,7 @@ export PATH="/path/to:$PATH"
 
 ```shell
 # 假设test.png的位置是/path/to/test.png
-qn put home/jay/images/test.png
+qn put /home/jay/images/test.png
 qn put ../images/test.png
 qn put test.png
 # 结果为:
@@ -90,8 +90,7 @@ upload successfully
 
 ## TODO
 
-支持通配符
+- [ ] 支持通配符(批量传入)
 
-qn put ./*.png
-
-qn put ./*
+- [ ] 改进路径问题(假设传入的路径中使用了`\`或者有空格,在传输之前首先处理这些问题(把路径中的`\`改为/并去除空格)
+- [ ] 当七牛中已经存在相同的照片时,提示该信息，并告知使用-w选项可以覆盖该文件
