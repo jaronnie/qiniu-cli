@@ -26,6 +26,12 @@ import (
 	"strings"
 )
 
+var (
+
+	overwrite bool
+
+)
+
 // putCmd represents the put command
 var putCmd = &cobra.Command{
 	Use:   "put <local file> [flags]",
@@ -66,20 +72,33 @@ func put(cmd *cobra.Command, params []string){
 
 	bucket := viper.GetString("bucket")
 
-	putPolicy := storage.PutPolicy{
-
-		Scope: bucket,
-	}
-
 	mac := qbox.NewMac(accessKey, secretKey)
-
-	upToken := putPolicy.UploadToken(mac)
 
 	cfg := storage.Config{
 
 		ApiHost:"http://api.qiniu.com",
 
 	}
+
+	var putPolicy storage.PutPolicy
+
+	if overwrite {
+
+		putPolicy = storage.PutPolicy{
+
+			Scope: fmt.Sprintf("%s:%s", bucket, path),
+		}
+
+	} else {
+
+		putPolicy = storage.PutPolicy{
+
+			Scope: bucket,
+		}
+
+	}
+
+	upToken := putPolicy.UploadToken(mac)
 
 	bm := storage.NewBucketManager(mac, &cfg)
 
@@ -123,6 +142,15 @@ func put(cmd *cobra.Command, params []string){
 
 
 func init() {
+
+	putCmd.Flags().BoolVarP(
+		&overwrite,
+		"overwrite",
+		"w",
+		false,
+		"when you use -w options, you can replace the same file...",
+
+	)
 
 	rootCmd.AddCommand(putCmd)
 
