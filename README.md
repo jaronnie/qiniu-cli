@@ -87,6 +87,7 @@ upload successfully
 
 * put
 > qn put filepath
+> 如果七牛上已经有该文件,默认不会覆盖上传.当你使用-w选项时可以进行覆盖上传
 
 ## TODO
 
