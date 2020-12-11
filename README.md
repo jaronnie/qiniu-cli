@@ -57,9 +57,25 @@ export PATH="/path/to:$PATH"
 
 `qn account -w ak sk bucket(把sk sk bucket换成你的ak sk以及你选择存储的空间)`
 
+### 注意事项
+
+填写文件路径的时候请使用`/`而不是`\`
+
+并保证文件名中没有空格
+
+正确的路径为 
+
+* ../filename(相对路径)
+* filename(同一目录)
+* /home/jay/filename(绝对路径)
+
+### 示例
+
 ```shell
 # 假设test.png的位置是/path/to/test.png
-qn put /path/to/test.png
+qn put home/jay/images/test.png
+qn put ../images/test.png
+qn put test.png
 # 结果为:
 upload successfully
 外链为:http://picture.nj-jay.com/test.png
