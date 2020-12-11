@@ -48,7 +48,7 @@ export PATH="/path/to:$PATH"
 mv /path/to/qn_mac /path/to/qn
 chmod +x /path/to/qn
 # 在~/.bashrc或者~/.zshrc中添加一行
-export PATH="/path/to/qn:$PATH"
+export PATH="/path/to:$PATH"
 ```
 
 ## 使用
