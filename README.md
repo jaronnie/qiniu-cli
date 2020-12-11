@@ -31,7 +31,7 @@ qiniu-cli一个基于命令行的文件上传工具
 mv /path/to/qn_linux  /path/to/qn
 chmod +x /path/to/qn
 # 在~/.bashrc或者~/.zshrc中添加一行
-export PATH="/path/to/qn:$PATH"
+export PATH="/path/to:$PATH"
 ```
 
 ### win
