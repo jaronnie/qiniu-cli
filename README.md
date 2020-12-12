@@ -83,6 +83,30 @@ upload successfully
 
 使用qn -h查看支持的命令
 
+## 与typora天然集成
+
+如果你使用的是typora编写markdown
+
+那么使用这款工具你将会发现写文档是多么舒适的一件事情啊
+
+### 配置
+
+首先需要保证你的typora的版本中存在这么一项服务
+
+<img src="https://picture.nj-jay.com/image-20201212235517320.png" alt="image-20201212235517320" style="zoom:50%;" />
+
+然后在上传服务中选择Custom Command
+
+然后使用自定义命令为`qn put`
+
+前提是你已经将之前的操作已经完成(更改文件名和添加环境变量)
+
+然后直接把图片拖到typora中
+
+或者截完屏之后直接复制到typora当中
+
+图片将自动上传到七牛云中(今天发现的意外之喜)
+
 ## 目前支持的命令
 
 * put
