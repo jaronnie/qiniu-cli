@@ -1,0 +1,8 @@
+
+(Typora:31206): Gtk-WARNING **: 17:55:41.735: Theme parsing error: gtk.css:6777:29: Missing opening bracket in color definition
+
+(Typora:31206): Gtk-WARNING **: 17:55:41.735: Theme parsing error: gtk.css:6779:34: Missing opening bracket in color definition
+
+(Typora:31206): Gtk-WARNING **: 17:55:41.735: Theme parsing error: gtk.css:6785:28: Missing opening bracket in color definition
+(node:31284) Electron: Loading non-context-aware native module in renderer: '/home/jay/SoftWare/Typora-linux-x64/resources/app/node_modules/pathwatcher/build/Release/pathwatcher.node'. This is deprecated, see https://github.com/electron/electron/issues/18397.
+(node:31284) Electron: Loading non-context-aware native module in renderer: '/home/jay/SoftWare/Typora-linux-x64/resources/app/node_modules/spellchecker/build/Release/spellchecker.node'. This is deprecated, see https://github.com/electron/electron/issues/18397.

@@ -18,7 +18,7 @@
 * 上传服务选择Custom Command.并自定义命令为qn put
 * 点击验证图片上传选项
 
-<img src="http://picture.nj-jay.com/image-20201213174857642.png" alt="image-20201213174857642" style="zoom:67%;" />
+![image-20201213185501418](http://picture.nj-jay.com/image-20201213185501418.png)
 
 ## 使用
 

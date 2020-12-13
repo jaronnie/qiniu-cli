@@ -79,6 +79,21 @@ qn put test.png
 # 结果为:
 upload successfully
 外链为:http://picture.nj-jay.com/test.png
+
+# 你也可以上传多个文件
+qn put ~/.pic/maven-compile.png ~/.pic/maven-package.png
+# 结果为:
+upload successfully
+外链为:
+http://picture.nj-jay.com/maven-compile.png
+
+upload successfully
+外链为:
+http://picture.nj-jay.com/maven-package.png
+
+## 如果你要覆盖上传 请使用-w选项
+qn put -w test.png
+qn put -w test1.png test2.png
 ```
 
 使用qn -h查看支持的命令
@@ -104,4 +119,3 @@ upload successfully
 - [ ] 支持通配符(批量传入)
 
 - [ ] 改进路径问题(假设传入的路径中使用了`\`或者有空格,在传输之前首先处理这些问题(把路径中的`\`改为/并去除空格)
-- [ ] 当七牛中已经存在同名的文件时,提示该信息，并告知使用-w选项可以覆盖该文件
