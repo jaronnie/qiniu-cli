@@ -91,7 +91,7 @@ upload successfully
 
 能够极大的提高你的效率
 
-[点击这个地方查看详细配置](typora.md)
+[点击这个地方查看详细配置](docs/typora.md)
 
 ## 目前支持的命令
 
