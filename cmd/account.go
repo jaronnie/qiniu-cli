@@ -75,6 +75,8 @@ func Account(cmd *cobra.Command, params []string) {
 
 	bucket := viper.GetString("bucket")
 
+	fmt.Println(ak)
+
 	if len(params) == 0 {
 
 		if  ak== "" ||  sk== "" || bucket == "" {

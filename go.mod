@@ -1,4 +1,4 @@
-module github.com/nj-jay/qiniu-cli
+module github.com/gocloudcoder/qiniu-cli
 
 go 1.14
 

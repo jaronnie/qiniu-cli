@@ -74,7 +74,7 @@ func put(cmd *cobra.Command, params []string){
 
 	for _, path := range params {
 
-		index := strings.LastIndexAny(path, "/")
+		index := strings.LastIndexAny(path, "\\")
 
 		var upload string
 
@@ -140,13 +140,7 @@ func put(cmd *cobra.Command, params []string){
 			return
 		}
 
-		fmt.Println("upload successfully")
-
-		fmt.Println("外链为:")
-
 		fmt.Println("http://" + domains[0].Domain + "/" + upload)
-
-		fmt.Println()
 
 	}
 

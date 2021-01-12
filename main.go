@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/nj-jay/qiniu-cli/cmd"
+import "github.com/gocloudcoder/qiniu-cli/cmd"
 
 func main() {
 	cmd.Execute()
