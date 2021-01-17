@@ -1,5 +1,8 @@
 # qiniu-cli
 
+merged form [github.com/nj-jay/qiniu-cli](https://github.com/nj-jay/qiniu-cli)
+
+
 如果你选择了七牛云作为图床
 
 而又不想在浏览器中上传图片或者文件等
