@@ -1,6 +1,6 @@
 # qiniu-cli
 
-merged from [github.com/nj-jay/qiniu-cli](https://github.com/nj-jay/qiniu-cli)
+merged from [https://github.com/nj-jay/qiniu-cli](https://github.com/nj-jay/qiniu-cli)
 
 
 如果你选择了七牛云作为图床
