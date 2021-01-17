@@ -24,8 +24,6 @@ type FileInfo struct {
 
 	filename string
 
-
-
 }
 
 // lsCmd represents the ls command
