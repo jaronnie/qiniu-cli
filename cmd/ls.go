@@ -16,13 +16,21 @@ limitations under the License.
 package cmd
 
 import (
-
+	"fmt"
+	"github.com/qiniu/api.v7/v7/auth/qbox"
+	"github.com/qiniu/api.v7/v7/storage"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"strings"
 )
 
 type FileInfo struct {
 
 	filename string
+
+	size string
+
+	putTime string
 
 }
 
@@ -36,12 +44,73 @@ var lsCmd = &cobra.Command{
 
 func ls(cmd *cobra.Command, params []string) {
 
-  
+		accessKey := viper.GetString("ak")
 
+		secretKey := viper.GetString("sk")
+
+		bucket := viper.GetString("bucket")
+
+		mac := qbox.NewMac(accessKey, secretKey)
+
+		cfg := storage.Config{
+
+			UseHTTPS: true,
+
+		}
+
+		bucketManager := storage.NewBucketManager(mac, &cfg)
+
+		limit := 10000
+
+		prefix := ""
+
+		delimiter := ""
+		
+		marker := ""
+
+		for {
+
+				entries, _, nextMarker, hasNext, err := bucketManager.ListFiles(bucket, prefix, delimiter, marker, limit)
+
+				if err != nil {
+
+					fmt.Println("list error,", err)
+
+					break
+				}
+
+
+				for _, entry := range entries {
+
+					if len(params) == 0 {
+
+						fmt.Println(entry.Key)
+
+					} else if len(params) == 1 && string(params[0][0]) == "*" 	{
+
+						if strings.HasSuffix(entry.Key, params[0][1:]) {
+							filename := entry.Key[0:strings.LastIndexAny(entry.Key, ".")]
+							fmt.Println(filename + params[0][1:])
+						}
+					}
+
+				}
+
+				if hasNext {
+
+					marker = nextMarker
+
+				} else {
+
+					break
+
+				}
+		}
 
 }
 
 func init() {
+
 	rootCmd.AddCommand(lsCmd)
 
 	// Here you will define your flags and configuration settings.
