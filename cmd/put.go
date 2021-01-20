@@ -74,7 +74,7 @@ func put(cmd *cobra.Command, params []string){
 
 	for _, path := range params {
 
-		index := strings.LastIndexAny(path, "\\")
+		index := strings.LastIndexAny(path, "/")
 
 		var upload string
 
@@ -91,6 +91,19 @@ func put(cmd *cobra.Command, params []string){
 		var putPolicy storage.PutPolicy
 
 		if overwrite {
+
+			//一点点小bug,没有办法的解决办法
+			//好傻逼啊！
+
+			err := os.Chdir(path[0:index+1])
+
+			if err != nil {
+
+				fmt.Println("err")
+
+			}
+
+			path = upload
 
 			putPolicy = storage.PutPolicy{
 
@@ -130,6 +143,7 @@ func put(cmd *cobra.Command, params []string){
 			},
 		}
 
+		fmt.Println(upload)
 
 		err = formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
 
