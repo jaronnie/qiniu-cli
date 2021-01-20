@@ -94,16 +94,21 @@ func put(cmd *cobra.Command, params []string){
 
 			//一点点小bug,没有办法的解决办法
 			//好傻逼啊！
+			if path == upload {
+				err := os.Chdir(".")
+				if err != nil {
+					fmt.Println("err")
+				}
+			} else {
 
-			err := os.Chdir(path[0:index+1])
+				err := os.Chdir(path[0:index+1])
+				path = upload
+				if err != nil {
 
-			if err != nil {
+					fmt.Println("err")
 
-				fmt.Println("err")
-
+				}
 			}
-
-			path = upload
 
 			putPolicy = storage.PutPolicy{
 
@@ -143,7 +148,7 @@ func put(cmd *cobra.Command, params []string){
 			},
 		}
 
-		fmt.Println(upload)
+		//fmt.Println(upload)
 
 		err = formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
 
