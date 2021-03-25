@@ -32,6 +32,13 @@ var (
 
 )
 
+type PutRet struct {
+	Hash         string `json:"hash"`
+	PersistentID string `json:"persistentId"`
+	Key          string `json:"key"`
+	Fsize 		 int `json:"fsize"`
+}
+
 // putCmd represents the put command
 var putCmd = &cobra.Command{
 	Use:   "put <local file> [<local file>] [flags]",
@@ -113,6 +120,9 @@ func put(cmd *cobra.Command, params []string){
 			putPolicy = storage.PutPolicy{
 
 				Scope: fmt.Sprintf("%s:%s", bucket, path),
+				CallbackURL:  "http://api.qiniu.com/qiniu/upload/callback",
+				CallbackBody:     `{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)"}`,
+				CallbackBodyType: "application/json",
 			}
 
 		} else {
@@ -120,11 +130,16 @@ func put(cmd *cobra.Command, params []string){
 			putPolicy = storage.PutPolicy{
 
 				Scope: bucket,
+				CallbackURL:  "http://api.qiniu.com/qiniu/upload/callback",
+				CallbackBody:     `{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)"}`,
+				CallbackBodyType: "application/json",
 			}
 
 		}
 
 		upToken := putPolicy.UploadToken(mac)
+
+		fmt.Println(upToken)
 
 		bm := storage.NewBucketManager(mac, &cfg)
 
@@ -138,7 +153,7 @@ func put(cmd *cobra.Command, params []string){
 
 		formUploader := storage.NewFormUploader(&cfg)
 
-		ret := storage.PutRet{}
+		ret := PutRet{}
 
 		putExtra := storage.PutExtra{
 
@@ -154,11 +169,14 @@ func put(cmd *cobra.Command, params []string){
 
 		if err != nil {
 
+			fmt.Println(err)
+
 			fmt.Println("上传失败")
 
 			return
 		}
 
+		fmt.Println(ret)
 		fmt.Println("http://" + domains[0].Domain + "/" + upload)
 
 	}
