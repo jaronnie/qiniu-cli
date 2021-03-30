@@ -1,5 +1,9 @@
 # 免费图床
 
+beta版
+
+http://tools.gocloudcoder.com/#upload
+
 由于身边的朋友有需要
 
 于是想基于七牛云开发一个免费的图床服务
