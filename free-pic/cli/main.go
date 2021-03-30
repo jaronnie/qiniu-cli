@@ -1,23 +1,22 @@
+/*
+Copyright © 2021 gocloudcoder
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package main
-import (
-	"context"
-	"fmt"
-	"github.com/qiniu/api.v7/v7/storage"
-)
+
+import "qn-cli/cmd"
+
 func main() {
-	putExtra := storage.PutExtra{
-		Params: map[string]string{
-			"x:name": "picture or some other data",
-		},
-	}
-	cfg := storage.Config{
-		ApiHost:"http://api.qiniu.com",
-	}
-	cfg.Zone = &storage.ZoneHuanan
-	ret := storage.PutRet{}
-	formUploader := storage.NewFormUploader(&cfg)
-	err := formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
-	if err != nil {
-		fmt.Println(err)
-	}
+	cmd.Execute()
 }
