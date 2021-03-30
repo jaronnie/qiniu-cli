@@ -19,6 +19,8 @@ qiniu-cli一个基于命令行的文件上传工具
 
 [免费图床](free-pic)
 
+体验版:http://tools.gocloudcoder.com/#/upload
+
 ## 下载
 
 | 平台  | 下载地址                                                     |
