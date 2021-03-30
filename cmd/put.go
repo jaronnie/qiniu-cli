@@ -93,13 +93,11 @@ func put(cmd *cobra.Command, params []string){
 				Scope: fmt.Sprintf("%s:%s", bucket, path),
 			}
 		} else {
-
 			putPolicy = storage.PutPolicy{
 				Scope: bucket,
 			}
 
 		}
-
 		upToken := putPolicy.UploadToken(mac)
 		bm := storage.NewBucketManager(mac, &cfg)
 		domains, err := bm.ListBucketDomains(bucket)
@@ -122,7 +120,6 @@ func put(cmd *cobra.Command, params []string){
 		fmt.Println("http://" + domains[0].Domain + "/" + upload)
 	}
 }
-
 
 func init() {
 	putCmd.Flags().BoolVarP(

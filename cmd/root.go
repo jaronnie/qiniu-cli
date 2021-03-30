@@ -41,68 +41,38 @@ func Execute() {
 }
 
 func init() {
-
 	cobra.OnInitialize(initConfig)
-
-
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-
 func initConfig() {
-
 	homeDir, hErr := homedir.Dir()
-
 	cfgFile = homeDir + "/.qn.toml"
-
 	if hErr != nil {
-
 		fmt.Printf("get current home directory: %v\n", hErr)
-
 		os.Exit(1)
-
 	}
-
 	if !PathExists(cfgFile) {
-
 		viper.SetConfigName(".qn")
-
 		viper.SetConfigType("toml")
-
 		viper.AddConfigPath(homeDir)
-
 		viper.Set("app_name", "qiniu-cli")
-
 		err := viper.SafeWriteConfig()
-
 		if err != nil {
-
 			log.Fatal("write config failed: ", err)
-
 		}
-
 	}
-
 	viper.SetConfigName(".qn")
-
 	viper.SetConfigType("toml")
-
 	viper.AddConfigPath(homeDir)
-
 	err := viper.ReadInConfig()
-
 	if err != nil {
-
 		fmt.Println("error")
 	}
-
-
 }
 
 func PathExists(path string) bool {
-
 	_, err := os.Stat(path)
-
 	if err == nil {
 
 		return true
@@ -111,6 +81,5 @@ func PathExists(path string) bool {
 
 		return false
 	}
-
 	return false
 }
