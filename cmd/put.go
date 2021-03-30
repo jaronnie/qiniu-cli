@@ -18,18 +18,17 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/qiniu/api.v7/v7/auth/qbox"
 	"github.com/qiniu/api.v7/v7/storage"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
-	"strings"
 )
 
 var (
-
 	overwrite bool
-
 )
 
 type PutRet struct {
@@ -48,153 +47,90 @@ var putCmd = &cobra.Command{
 }
 
 func put(cmd *cobra.Command, params []string){
-
 	if len(params) <= 0 {
-
 		fmt.Println("please set filepath...")
-
 		os.Exit(0)
-
 	}
 
 	accessKey := viper.GetString("ak")
-
 	secretKey := viper.GetString("sk")
-
 	bucket := viper.GetString("bucket")
-
 	if accessKey == "" || secretKey == "" || bucket == "" {
-
 		fmt.Println("请设置ak, sk, bucket")
-
 		os.Exit(0)
-
 	}
 
 	mac := qbox.NewMac(accessKey, secretKey)
-
 	cfg := storage.Config{
-
 		ApiHost:"http://api.qiniu.com",
-
 	}
 
 	for _, path := range params {
-
 		index := strings.LastIndexAny(path, "/")
-
 		var upload string
-
 		if index != -1 {
-
 			upload = path[index+1:]
-
 		} else {
-
 			upload = path
-
 		}
 
 		var putPolicy storage.PutPolicy
 
 		if overwrite {
-
-			//一点点小bug,没有办法的解决办法
-			//好傻逼啊！
 			if path == upload {
 				err := os.Chdir(".")
 				if err != nil {
 					fmt.Println("err")
 				}
 			} else {
-
 				err := os.Chdir(path[0:index+1])
 				path = upload
 				if err != nil {
-
 					fmt.Println("err")
-
 				}
 			}
-
 			putPolicy = storage.PutPolicy{
-
 				Scope: fmt.Sprintf("%s:%s", bucket, path),
-				CallbackURL:  "http://api.qiniu.com/qiniu/upload/callback",
-				CallbackBody:     `{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)"}`,
-				CallbackBodyType: "application/json",
 			}
-
 		} else {
 
 			putPolicy = storage.PutPolicy{
-
 				Scope: bucket,
-				CallbackURL:  "http://api.qiniu.com/qiniu/upload/callback",
-				CallbackBody:     `{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)"}`,
-				CallbackBodyType: "application/json",
 			}
 
 		}
 
 		upToken := putPolicy.UploadToken(mac)
-
-		fmt.Println(upToken)
-
 		bm := storage.NewBucketManager(mac, &cfg)
-
 		domains, err := bm.ListBucketDomains(bucket)
-
 		if err != nil {
-
 			fmt.Println("get domain err")
-
 		}
-
 		formUploader := storage.NewFormUploader(&cfg)
-
-		ret := PutRet{}
-
+		ret := storage.PutPolicy{}
 		putExtra := storage.PutExtra{
-
 			Params: map[string]string{
-
 				"x:name": "picture or some other data",
 			},
 		}
-
-		//fmt.Println(upload)
-
 		err = formUploader.PutFile(context.Background(), &ret, upToken, upload, path, &putExtra)
-
 		if err != nil {
-
 			fmt.Println(err)
-
 			fmt.Println("上传失败")
-
 			return
 		}
-
-		fmt.Println(ret)
 		fmt.Println("http://" + domains[0].Domain + "/" + upload)
-
 	}
-
 }
 
 
 func init() {
-
 	putCmd.Flags().BoolVarP(
 		&overwrite,
 		"overwrite",
 		"w",
 		false,
 		"when you use -w options, you can replace the same file...",
-
 	)
-
 	rootCmd.AddCommand(putCmd)
-
 }
