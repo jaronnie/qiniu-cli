@@ -71,7 +71,7 @@ func put(cmd *cobra.Command, args []string) {
 			fmt.Println("上传失败")
 			return
 		}
-		fmt.Println(upload)
+		fmt.Println("https://pic.gocloudcoder.com/" + upload)
 	}
 }
 
