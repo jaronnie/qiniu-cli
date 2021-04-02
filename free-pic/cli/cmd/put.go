@@ -29,7 +29,7 @@ import (
 )
 
 type upToken struct {
-	token string
+	Token string `json:"token"`
 }
 
 // putCmd represents the put command
@@ -57,7 +57,6 @@ func put(cmd *cobra.Command, args []string) {
 	}
 	formUploader := storage.NewFormUploader(&cfg)
 	ret := storage.PutPolicy{}
-
 	for _, path := range args {
 		index := strings.LastIndexAny(path, "/")
 		var upload string
@@ -83,19 +82,17 @@ func getToken() string {
 		err error
 	)
 
-	if response, err = http.Get("http://localhost:8081/upload"); err != nil {
+	if response, err = http.Get("http://gocloudcoder.com:8081/upload"); err != nil {
 		log.Fatal("请求token失败")
 	}
 	if data, err = ioutil.ReadAll(response.Body); err != nil {
 		log.Fatal("请求token失败")
 	}
-	fmt.Println(string(data))
 	uptoken := upToken{}
 	if err = json.Unmarshal(data, &uptoken); err != nil {
 		log.Fatal("请求token失败")
 	}
-	fmt.Println(uptoken.token)
-	return string(data)
+	return uptoken.Token
 }
 
 func init() {
