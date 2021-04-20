@@ -12,6 +12,8 @@ import (
 
 func main() {
 	global.MAC = initalize.InitMAC()
+	global.QN_DB = initalize.GormMysql()
+	initalize.MysqlTables(global.QN_DB)
 	r := gin.Default()
 	r.Use(middlewares.Cors())
 	routers.LoadRouter(r)

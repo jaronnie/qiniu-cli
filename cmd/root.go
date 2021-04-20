@@ -30,7 +30,6 @@ var rootCmd = &cobra.Command{
 	Use:   "qn",
 	Short: "simple qiniu-cli",
 	Long: `qiniu-cli is based on qiniu product about go sdk, I just simplify it in order to use it easily`,
-
 }
 
 func Execute() {

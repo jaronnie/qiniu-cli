@@ -18,7 +18,5 @@ package main
 import "github.com/gocloudcoder/qiniu-cli/cmd"
 
 func main() {
-
 	cmd.Execute()
-
 }

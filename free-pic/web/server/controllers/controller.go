@@ -8,7 +8,7 @@ import (
 
 func UpToken(c *gin.Context) {
 	token := service.GenerateToken()
-	c.IndentedJSON(200, gin.H{
+	c.JSON(200, gin.H{
 		"token":token,
 	})
 }
