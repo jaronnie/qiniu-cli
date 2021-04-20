@@ -100,6 +100,7 @@ func putRemoteFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config
 }
 
 func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config) {
+	path = strings.Replace(path, `\`, `/`, -1)
 	index := strings.LastIndexAny(path, "/")
 	var upload string
 	if index != -1 {
