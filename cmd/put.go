@@ -1,18 +1,3 @@
-/*
-Copyright © 2020 NAME HERE <EMAIL ADDRESS>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 package cmd
 
 import (
@@ -35,18 +20,18 @@ type PutRet struct {
 	Hash         string `json:"hash"`
 	PersistentID string `json:"persistentId"`
 	Key          string `json:"key"`
-	Fsize 		 int `json:"fsize"`
+	Fsize        int    `json:"fsize"`
 }
 
 // putCmd represents the put command
 var putCmd = &cobra.Command{
 	Use:   "put <local/remote file> [<local/remote file>] [flags]",
 	Short: "put file to qiniu server",
-	Long: `use put command, you can put your local file to qiniu server, and get a url.`,
-	Run: put,
+	Long:  `use put command, you can put your local file to qiniu server, and get a url.`,
+	Run:   put,
 }
 
-func put(cmd *cobra.Command, params []string){
+func put(cmd *cobra.Command, params []string) {
 	if len(params) <= 0 {
 		fmt.Println("please set filepath...")
 		os.Exit(0)
@@ -62,7 +47,7 @@ func put(cmd *cobra.Command, params []string){
 
 	mac := qbox.NewMac(accessKey, secretKey)
 	cfg := storage.Config{
-		ApiHost:"http://api.qiniu.com",
+		ApiHost: "http://api.qiniu.com",
 	}
 
 	for _, path := range params {
@@ -73,7 +58,6 @@ func put(cmd *cobra.Command, params []string){
 		}
 	}
 }
-
 
 func isRemoteFile(path string) bool {
 	return strings.HasPrefix(path, "http")
@@ -118,7 +102,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 				fmt.Println("err")
 			}
 		} else {
-			err := os.Chdir(path[0:index+1])
+			err := os.Chdir(path[0 : index+1])
 			path = upload
 			if err != nil {
 				fmt.Println("err")
