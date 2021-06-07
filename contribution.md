@@ -1,2 +1,0 @@
-nj-jay
-gocloudcoder

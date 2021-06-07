@@ -42,7 +42,6 @@ func initConfig() {
 		viper.SetConfigName(".qn")
 		viper.SetConfigType("toml")
 		viper.AddConfigPath(homeDir)
-		viper.Set("app_name", "qiniu-cli")
 		err := viper.SafeWriteConfig()
 		if err != nil {
 			log.Fatal("write config failed: ", err)

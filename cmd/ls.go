@@ -4,16 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qiniu/api.v7/v7/auth/qbox"
 	"github.com/qiniu/api.v7/v7/storage"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 type FileInfo struct {
 	filename string
-	size string
-	putTime string
+	size     string
+	putTime  string
 }
 
 // lsCmd represents the ls command
@@ -25,15 +23,13 @@ var lsCmd = &cobra.Command{
 }
 
 func ls(cmd *cobra.Command, params []string) {
-	accessKey := viper.GetString("ak")
-	secretKey := viper.GetString("sk")
-	bucket := viper.GetString("bucket")
-	mac := qbox.NewMac(accessKey, secretKey)
+	bucket := Bm.GetBucket()
+	mac := Acc.GetMac()
 	cfg := storage.Config{
 		UseHTTPS: true,
 	}
 	bucketManager := storage.NewBucketManager(mac, &cfg)
-	limit := 10000
+	limit := 1000
 	prefix := ""
 	delimiter := ""
 	marker := ""
@@ -53,7 +49,6 @@ func ls(cmd *cobra.Command, params []string) {
 				}
 			}
 		}
-
 		if hasNext {
 			marker = nextMarker
 		} else {

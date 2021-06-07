@@ -9,7 +9,6 @@ import (
 	"github.com/qiniu/api.v7/v7/auth/qbox"
 	"github.com/qiniu/api.v7/v7/storage"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var (
@@ -37,15 +36,13 @@ func put(cmd *cobra.Command, params []string) {
 		os.Exit(0)
 	}
 
-	accessKey := viper.GetString("ak")
-	secretKey := viper.GetString("sk")
-	bucket := viper.GetString("bucket")
-	if accessKey == "" || secretKey == "" || bucket == "" {
+	if !Acc.ValidAccount() {
 		fmt.Println("请设置ak, sk, bucket")
 		os.Exit(0)
 	}
 
-	mac := qbox.NewMac(accessKey, secretKey)
+	mac := Acc.GetMac()
+	bucket := Bm.GetBucket()
 	cfg := storage.Config{
 		ApiHost: "http://api.qiniu.com",
 	}
