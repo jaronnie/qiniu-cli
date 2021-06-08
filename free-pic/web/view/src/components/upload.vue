@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "page1",
+  name: "upload",
   data() {
     return {
       imgName:"",

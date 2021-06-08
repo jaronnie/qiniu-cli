@@ -10,7 +10,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-<!--          导航栏-->
+        
 <!--          <el-submenu index="1">-->
 <!--            <template slot="title">-->
 <!--              <i class="el-icon-location"></i>-->
@@ -48,8 +48,7 @@ export default {
   data() {
     return {
       navList: [
-        {name:"/element", navItem:"element"},
-        {name:"/Echart", navItem:"Echart"}
+        {name:"/upload", navItem:"upload"},
       ],
       isTabBar: false
     }
