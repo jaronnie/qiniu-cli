@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qiniu/api.v7/v7/storage"
+	"github.com/qiniu/go-sdk/v7/storage"
 	"github.com/spf13/cobra"
 )
 

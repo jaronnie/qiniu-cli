@@ -3,7 +3,7 @@ package fs
 import (
 	"fmt"
 
-	"github.com/qiniu/api.v7/v7/auth/qbox"
+	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"github.com/spf13/viper"
 )
 
