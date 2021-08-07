@@ -12,7 +12,7 @@ var (
 	accountOver bool
 )
 
-//go:embed ..\banner.txt
+//go:embed banner.txt
 var welcome string
 
 var (

@@ -71,6 +71,7 @@ func getFinalKey(path string) string {
 
 func putRemoteFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config) {
 	finalKey := getFinalKey(path)
+	fmt.Println(finalKey)
 	bm := storage.NewBucketManager(mac, &cfg)
 	res, err := bm.Fetch(path, bucket, finalKey)
 	if err != nil {
@@ -133,7 +134,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		fmt.Println("上传失败")
 		return
 	}
-	fmt.Println("http://" + domains[0].Domain + "/" + upload)
+	fmt.Println("https://" + domains[0].Domain + "/" + upload)
 }
 
 func init() {
