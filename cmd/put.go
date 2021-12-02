@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"github.com/qiniu/go-sdk/v7/cdn"
 	"os"
 	"strings"
 
@@ -132,6 +133,15 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 	if err != nil {
 		fmt.Println(err)
 		fmt.Println("上传失败")
+		return
+	}
+	urlsToRefresh := []string{
+		"https://" + domains[0].Domain + "/" + upload,
+	}
+	cdnManager := cdn.NewCdnManager(mac)
+	_, err = cdnManager.RefreshUrls(urlsToRefresh)
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 	fmt.Println("https://" + domains[0].Domain + "/" + upload)

@@ -8,8 +8,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
-	github.com/qiniu/api.v7/v7 v7.8.1
-	github.com/qiniu/go-sdk/v7 v7.9.6 // indirect
+	github.com/qiniu/go-sdk/v7 v7.9.6
 	github.com/spf13/afero v1.5.1 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.1
