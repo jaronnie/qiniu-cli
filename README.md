@@ -22,50 +22,11 @@ qiniu-cli一个基于命令行的文件上传工具
 
 并选择你要将文件存储在哪个空间(bucket)中 [链接](https://portal.qiniu.com/kodo/bucket)
 
-### linux
-
-```shell
-# 假设qn_linux文件所在的路径为 /path/to/qn_linux
-mv /path/to/qn_linux  /path/to/qn
-chmod +x /path/to/qn
-# 在~/.bashrc或者~/.zshrc中添加一行
-export PATH="/path/to:$PATH"
-```
-
-### win
-
-```shell
-# 修改qn_win.exe为qn.exe
-#把qn.exe所在的目录添加为环境变量即可
-```
-
-### mac
-
-```shell
-# 假设qn_mac文件所在的路径为 /path/to/qn_mac
-mv /path/to/qn_mac /path/to/qn
-chmod +x /path/to/qn
-# 在~/.bashrc或者~/.zshrc中添加一行
-export PATH="/path/to:$PATH"
-```
-
 ## 使用
 
 第一次使用时需要配置你的ak sk 以及bucket
 
 `qn account -w ak sk bucket(把sk sk bucket换成你的ak sk以及你选择存储的空间)`
-
-### 注意事项
-
-填写文件路径的时候请使用`/`而不是`\`
-
-并保证文件名中没有空格
-
-正确的路径为 
-
-* ../filename(相对路径)
-* filename(同一目录)
-* /home/jay/filename(绝对路径)
 
 ### 示例
 
