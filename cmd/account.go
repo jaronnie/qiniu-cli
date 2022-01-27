@@ -1,19 +1,16 @@
 package cmd
 
 import (
-	_ "embed"
 	"fmt"
-
 	"github.com/jaronnie/qiniu-cli/cmd/fs"
 	"github.com/spf13/cobra"
+	"io/ioutil"
 )
 
 var (
 	accountOver bool
 )
 
-//go:embed banner.txt
-var welcome string
 
 var (
 	Acc fs.Account
@@ -35,6 +32,8 @@ var accountCmd = &cobra.Command{
 }
 
 func Account(cmd *cobra.Command, params []string) {
+	// banner
+	file, _ := ioutil.ReadFile("./banner.txt")
 	ak := Acc.GetAccount().Ak
 	sk := Acc.GetAccount().Sk
 	bucket := Bm.GetBucket()
@@ -42,7 +41,7 @@ func Account(cmd *cobra.Command, params []string) {
 		if ak == "" || sk == "" || bucket == "" {
 			fmt.Println("please set your ak, sk, bucket in config file(default is ~/.qn.toml)")
 		} else {
-			fmt.Println(welcome)
+			fmt.Println(string(file))
 			fmt.Println("Reading from ~/.qn.toml")
 			fmt.Println("ak:	", ak)
 			fmt.Println("sk:	", sk)
@@ -50,7 +49,7 @@ func Account(cmd *cobra.Command, params []string) {
 		}
 	} else if len(params) == 3 && accountOver {
 		Acc.InitAccount(params)
-		fmt.Println(welcome)
+		fmt.Println(string(file))
 	} else if len(params) == 3 && !accountOver {
 		fmt.Println("please use -w flags. For example, qn account -w ak sk bucket")
 	}
