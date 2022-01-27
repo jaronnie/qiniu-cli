@@ -10,7 +10,7 @@
 
 [具体配置点击这个地方](../README.md)
 
-打开typora的偏好设置并选择图像这一设置
+打开 typora 的偏好设置并选择图像这一设置
 
 ![image-20201213173939351](http://resource.gocloudcoder.com/image-20201213173939351.png)
 
