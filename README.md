@@ -24,6 +24,12 @@ qiniu-cli一个基于命令行的文件上传工具
 
 ## 使用
 
+```shell
+go install github.com/jaronnie/qiniu-cli@latest
+// 将 qiniu-cli 重命名为 qn
+```
+
+
 第一次使用时需要配置你的ak sk 以及bucket
 
 `qn account -w ak sk bucket(把sk sk bucket换成你的ak sk以及你选择存储的空间)`
