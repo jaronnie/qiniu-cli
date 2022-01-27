@@ -3,17 +3,19 @@ package cmd
 import (
 	"context"
 	"fmt"
-	"github.com/qiniu/go-sdk/v7/cdn"
 	"os"
 	"strings"
 
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
+	"github.com/qiniu/go-sdk/v7/cdn"
 	"github.com/qiniu/go-sdk/v7/storage"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var (
-	overwrite bool
+	overwrite       bool
+	defaultProtocol = "http"
 )
 
 type PutRet struct {
@@ -79,7 +81,8 @@ func putRemoteFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config
 		fmt.Println(err)
 	}
 	domains, _ := bm.ListBucketDomains(bucket)
-	fmt.Println("http://" + domains[0].Domain + "/" + res.Key)
+
+	fmt.Println(getProtocol() + "://" + domains[0].Domain + "/" + res.Key)
 }
 
 func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config) {
@@ -144,7 +147,18 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("https://" + domains[0].Domain + "/" + upload)
+	fmt.Println(getProtocol() + "://" + domains[0].Domain + "/" + upload)
+}
+
+func getProtocol() string {
+	protocol := viper.GetString("qn.protocol")
+	if protocol == "" {
+		return defaultProtocol
+	}
+	if protocol != "http" && protocol != "https" {
+		return defaultProtocol
+	}
+	return protocol
 }
 
 func init() {

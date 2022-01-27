@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/qiniu/go-sdk/v7/storage"
 	"github.com/qiniu/go-sdk/v7/cdn"
+	"github.com/qiniu/go-sdk/v7/storage"
 	"github.com/spf13/cobra"
 )
 
@@ -33,9 +33,8 @@ func rm(cmd *cobra.Command, args []string) {
 		return
 	}
 	fmt.Printf("delete %s successfully\n", args[0])
-	//删除只有还需要刷新cdn 几秒后就能看到效果！ 还是挺不错的!
 	urlsToRefresh := []string{
-		"https://picture.nj-jay.com/banner.txt",
+		args[0],
 	}
 
 	cdnManager := cdn.NewCdnManager(mac)

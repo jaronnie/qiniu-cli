@@ -2,15 +2,16 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
+
+	"github.com/fatih/color"
 	"github.com/jaronnie/qiniu-cli/cmd/fs"
 	"github.com/spf13/cobra"
-	"io/ioutil"
 )
 
 var (
 	accountOver bool
 )
-
 
 var (
 	Acc fs.Account
@@ -41,7 +42,7 @@ func Account(cmd *cobra.Command, params []string) {
 		if ak == "" || sk == "" || bucket == "" {
 			fmt.Println("please set your ak, sk, bucket in config file(default is ~/.qn.toml)")
 		} else {
-			fmt.Println(string(file))
+			color.Cyan(string(file))
 			fmt.Println("Reading from ~/.qn.toml")
 			fmt.Println("ak:	", ak)
 			fmt.Println("sk:	", sk)
@@ -49,7 +50,7 @@ func Account(cmd *cobra.Command, params []string) {
 		}
 	} else if len(params) == 3 && accountOver {
 		Acc.InitAccount(params)
-		fmt.Println(string(file))
+		color.Cyan(string(file))
 	} else if len(params) == 3 && !accountOver {
 		fmt.Println("please use -w flags. For example, qn account -w ak sk bucket")
 	}

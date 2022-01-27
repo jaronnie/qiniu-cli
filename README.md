@@ -1,8 +1,5 @@
 # qiniu-cli
 
-merged from [https://github.com/nj-jay/qiniu-cli](https://github.com/nj-jay/qiniu-cli)
-
-
 如果你选择了七牛云作为图床
 
 而又不想在浏览器中上传图片或者文件等
@@ -18,16 +15,6 @@ qiniu-cli一个基于命令行的文件上传工具
 如果你只是寻找一个免费图床，请点击下方链接
 
 [免费图床](free-pic)
-
-体验版:http://tools.gocloudcoder.com/#/upload
-
-## 下载
-
-| 平台  | 下载地址                                                     |
-| ----- | ------------------------------------------------------------ |
-| linux | [https://picture.nj-jay.com/qn_linux](https://picture.nj-jay.com/qn_linux) |
-| win   | [https://picture.nj-jay.com/qn_win.exe](https://picture.nj-jay.com/qn_win.exe) |
-| mac   | [https://picture.nj-jay.com/qn_mac](https://picture.nj-jay.com/qn_mac) |
 
 ## 配置
 
@@ -89,29 +76,31 @@ qn put ../images/test.png
 qn put test.png
 # 结果为:
 upload successfully
-外链为:http://picture.nj-jay.com/test.png
+外链为:http(s)://resource.jaronnie.com/test.png
 
 # 你也可以上传多个文件
 qn put ~/.pic/maven-compile.png ~/.pic/maven-package.png
 # 结果为:
 upload successfully
-外链为:
-http://picture.nj-jay.com/maven-compile.png
+外链为:http(s)://resource.jaronnie.com/test.png
 
 upload successfully
-外链为:
-http://picture.nj-jay.com/maven-package.png
+外链为:http(s)://resource.jaronnie.com/test.png
 
 ## 如果你要覆盖上传 请使用-w选项
 qn put -w test.png
 qn put -w test1.png test2.png
+
+# 可以将网页文件上传
+qn put https://xx/test.png
+外链为:http(s)://resource.jaronnie.com/test.png
 ```
 
 使用qn -h查看支持的命令
 
-## 与typora天然集成
+## 与 Typora 天然集成
 
-如果你使用的是typora这款软件编写markdown
+如果你使用的是 typora 这款软件编写 markdown 
 
 那么这个工具将是你的不二之选
 
@@ -124,15 +113,5 @@ qn put -w test1.png test2.png
 | 子命令  | 如何使用                   | 注意事项                                                     |
 | ------- | -------------------------- | ------------------------------------------------------------ |
 | account | qn account -w ak sk bucket | 替换你在七牛云上的ak sk bucket                               |
-| put     | qn put filename [filename] | filename可填写绝对路径和相对路径，注意使用/而不是\，可同时传多个文件，用空格隔开 |
+| put     | qn put [-w] filename [filename] | filename可填写绝对路径和相对路径，注意使用/而不是\，可同时传多个文件，用空格隔开 |
 | ls      | qn ls 或 qn ls *.xxx       | xxx为文件的后缀 如 qn ls *.png                               |
-
-## TODO
-
-- [x] 支持通配符(批量传入)
-
-- [ ] 改进路径问题(去除路径中的空格)
-
-## 更新
-
-* 4.20 可将网络上的文件上传到七牛中
