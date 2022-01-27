@@ -12,16 +12,16 @@
 
 打开typora的偏好设置并选择图像这一设置
 
-![image-20201213173939351](http://picture.nj-jay.com/image-20201213173939351.png)
+![image-20201213173939351](http://resource.gocloudcoder.com/image-20201213173939351.png)
 
 * 插入图片时: 选择为上传图片.下面的选项可选,根据自己的喜好进行配置
 * 上传服务选择Custom Command.并自定义命令为qn put
 * 点击验证图片上传选项
 
-![image-20201213185501418](http://picture.nj-jay.com/image-20201213185501418.png)
+![image-20201213185501418](http://resource.gocloudcoder.com/image-20201213185501418.png)
 
 ## 使用
 
-* 拖动图片到typora中,将会自动上传文件到七牛云中,图片url将会自动转成外链
-* 截屏之后直接粘贴到typora中,图片将会自动上传到七牛云中,并自动转成外链
+* 拖动图片到 typora 中,将会自动上传文件到七牛云中,图片 url 将会自动转成外链
+* 截屏之后直接粘贴到 typora 中,图片将会自动上传到七牛云中,并自动转成外链
 
