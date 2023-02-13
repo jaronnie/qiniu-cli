@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
@@ -16,6 +17,8 @@ import (
 var (
 	overwrite       bool
 	defaultProtocol = "http"
+
+	Dir string
 )
 
 type PutRet struct {
@@ -74,9 +77,8 @@ func getFinalKey(path string) string {
 
 func putRemoteFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config) {
 	finalKey := getFinalKey(path)
-	fmt.Println(finalKey)
 	bm := storage.NewBucketManager(mac, &cfg)
-	res, err := bm.Fetch(path, bucket, finalKey)
+	res, err := bm.Fetch(path, bucket, filepath.Join(Dir, finalKey))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -111,11 +113,15 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 			}
 		}
 		putPolicy = storage.PutPolicy{
-			Scope: fmt.Sprintf("%s:%s", bucket, path),
+			Scope:        fmt.Sprintf("%s:%s", bucket, path),
+			ForceSaveKey: true,
+			SaveKey:      filepath.Join(Dir, path),
 		}
 	} else {
 		putPolicy = storage.PutPolicy{
-			Scope: bucket,
+			Scope:        bucket,
+			ForceSaveKey: true,
+			SaveKey:      filepath.Join(Dir, path),
 		}
 
 	}
@@ -139,7 +145,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		return
 	}
 	urlsToRefresh := []string{
-		"https://" + domains[0].Domain + "/" + upload,
+		"https://" + domains[0].Domain + "/" + filepath.Join(Dir, upload),
 	}
 	cdnManager := cdn.NewCdnManager(mac)
 	_, err = cdnManager.RefreshUrls(urlsToRefresh)
@@ -147,7 +153,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(getProtocol() + "://" + domains[0].Domain + "/" + upload)
+	fmt.Println(getProtocol() + "://" + domains[0].Domain + "/" + filepath.Join(Dir, upload))
 }
 
 func getProtocol() string {
@@ -168,6 +174,14 @@ func init() {
 		"w",
 		false,
 		"when you use -w options, you can replace the same file...",
+	)
+
+	putCmd.Flags().StringVarP(
+		&Dir,
+		"dir",
+		"d",
+		"",
+		"put to dir",
 	)
 	rootCmd.AddCommand(putCmd)
 }
