@@ -78,6 +78,10 @@ func getFinalKey(path string) string {
 
 func putRemoteFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config) {
 	finalKey := getFinalKey(path)
+	if LastSaveKey != "" {
+		finalKey = LastSaveKey
+	}
+
 	bm := storage.NewBucketManager(mac, &cfg)
 	res, err := bm.Fetch(path, bucket, filepath.Join(Dir, finalKey))
 	if err != nil {
