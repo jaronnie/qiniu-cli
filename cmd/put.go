@@ -18,7 +18,8 @@ var (
 	overwrite       bool
 	defaultProtocol = "http"
 
-	Dir string
+	Dir         string
+	LastSaveKey string
 )
 
 type PutRet struct {
@@ -99,6 +100,14 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 
 	var putPolicy storage.PutPolicy
 
+	var lastSaveKey string
+
+	if LastSaveKey != "" {
+		lastSaveKey = LastSaveKey
+	} else {
+		lastSaveKey = path
+	}
+
 	if overwrite {
 		if path == upload {
 			err := os.Chdir(".")
@@ -115,13 +124,13 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		putPolicy = storage.PutPolicy{
 			Scope:        fmt.Sprintf("%s:%s", bucket, path),
 			ForceSaveKey: true,
-			SaveKey:      filepath.Join(Dir, path),
+			SaveKey:      filepath.Join(Dir, lastSaveKey),
 		}
 	} else {
 		putPolicy = storage.PutPolicy{
 			Scope:        bucket,
 			ForceSaveKey: true,
-			SaveKey:      filepath.Join(Dir, path),
+			SaveKey:      filepath.Join(Dir, lastSaveKey),
 		}
 
 	}
@@ -145,7 +154,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		return
 	}
 	urlsToRefresh := []string{
-		"https://" + domains[0].Domain + "/" + filepath.Join(Dir, upload),
+		"https://" + domains[0].Domain + "/" + filepath.Join(Dir, lastSaveKey),
 	}
 	cdnManager := cdn.NewCdnManager(mac)
 	_, err = cdnManager.RefreshUrls(urlsToRefresh)
@@ -153,7 +162,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(getProtocol() + "://" + domains[0].Domain + "/" + filepath.Join(Dir, upload))
+	fmt.Println(getProtocol() + "://" + domains[0].Domain + "/" + filepath.Join(Dir, lastSaveKey))
 }
 
 func getProtocol() string {
@@ -182,6 +191,13 @@ func init() {
 		"d",
 		"",
 		"put to dir",
+	)
+	putCmd.Flags().StringVarP(
+		&LastSaveKey,
+		"name",
+		"n",
+		"",
+		"save key",
 	)
 	rootCmd.AddCommand(putCmd)
 }
