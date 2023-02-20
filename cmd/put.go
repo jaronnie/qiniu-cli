@@ -109,7 +109,7 @@ func putLocalFile(path string, mac *qbox.Mac, bucket string, cfg storage.Config)
 	if LastSaveKey != "" {
 		lastSaveKey = LastSaveKey
 	} else {
-		lastSaveKey = path
+		lastSaveKey = upload
 	}
 
 	if overwrite {
