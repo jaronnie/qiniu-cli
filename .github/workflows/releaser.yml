@@ -1,4 +1,4 @@
-name: goreleaser-gvm
+name: goreleaser-qiniu-cli
 
 on:
   push:

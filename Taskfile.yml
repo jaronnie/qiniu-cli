@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  install:
+    deps:
+      - build
+    cmds:
+      - cp dist/qiniu-cli_{{OS}}_{{ARCH}}/qn $GOBIN
+    silent: true
+  build:
+    cmds:
+      - goreleaser build --snapshot --single-target --rm-dist
+    silent: true
+  release:
+    cmds:
+      - goreleaser release --rm-dist
+    silent: true
