@@ -14,8 +14,6 @@ qiniu-cli一个基于命令行的文件上传工具
 
 如果你只是寻找一个免费图床，请点击下方链接
 
-[免费图床](free-pic)
-
 ## 配置
 
 首先在七牛云上找到账号ak sk [链接](https://portal.qiniu.com/user/key)
